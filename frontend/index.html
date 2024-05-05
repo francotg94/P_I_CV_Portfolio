@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio Website</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Portfolio Site</h1>
+    </header>
+    <nav id="navbar">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            &#9776; <!-- This is a common icon used for hamburger menus -->
+        </a>
+    </nav>
+    <main>
+        <section>
+            <h2>About Me</h2>
+            <p>This is the home of my professional and personal projects. Through the lens of a photographer, outdoorsperson, and an aspiring data professional.</p>
+        </section>
+        <section>
+            <h2>Projects</h2>
+            <!-- Project details here -->
+        </section>
+        </section>
+            <h2>Portfolio</h2>
+            <!-- Portfolio details here -->
+        <section>
+            <h2>Upload Your Photos</h2>
+            <form action="http://127.0.0.1:5000/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Upload">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © Your Year. All rights reserved.</p>
+    </footer>
+    <script>
+        function toggleMenu() {
+            var navbar = document.getElementById("navbar");
+            if (navbar.className === "topnav") {
+                navbar.className += " responsive"; // Add responsive class to navbar
+            } else {
+                navbar.className = "topnav"; // Remove responsive class from navbar
+            }
+        }
+    </script>
+    <script>
+    function uploadPhotos() {
+        var files = document.getElementById('photoInput').files;
+        var formData = new FormData();
+        
+        for (var i = 0; i < files.length; i++) {
+                formData.append('photos', files[i]);
+        }
+        
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+    </script>
+</body>
+</html>
